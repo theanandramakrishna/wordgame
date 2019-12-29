@@ -1,4 +1,5 @@
 const electron = require("electron");
+const wordlist = require("./wordlist");
 
 var win;
 
@@ -24,3 +25,7 @@ function createWindow() {
 
 electron.app.on("ready", createWindow);
 electron.app.on("activate", createWindow);
+
+wordlist.init();
+
+
