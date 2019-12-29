@@ -4,6 +4,7 @@
   "description": "boggle",
   "main": "index.js",
   "scripts": {
+    "start": "electron .",
     "test": "test"
   },
   "repository": {
