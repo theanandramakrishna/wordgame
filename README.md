@@ -4,10 +4,10 @@
 2. Clone/Download this repository.
 3. Install the neccessary dependencies by running npm install in the repository directory.
 4. To start the program, run the command npm start.
-```bash
+```filler
 C:\Users\daniel\wordgame>npm start
 ```
 5. To do tests, run the command npm test.
-```bash
+```filler
 C:\Users\daniel\wordgame>npm test
 ```
