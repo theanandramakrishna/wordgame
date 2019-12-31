@@ -1,5 +1,5 @@
 const electron = require("electron");
-const wordlist = require("./game");
+const game = require("./game");
 
 var win;
 
