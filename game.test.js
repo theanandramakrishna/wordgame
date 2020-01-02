@@ -23,4 +23,11 @@ test("Second word is access", () => {
     game.setBaseword(1);
     expect(game.getBaseword().word).toBe("access");
 });
-
+test("After 5 seconds, baseword is null", () => {
+    game.setBaseword(0);
+    expect(game.getBaseword()).not.toBe(null);
+    game.countdown(5);
+    setTimeout(() => {
+        expect(game.getBaseword()).toBe(null);
+    }, 5000);
+});

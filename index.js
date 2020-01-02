@@ -1,5 +1,5 @@
 const electron = require("electron");
-const wordlist = require("./game");
+const game = require("./game");
 
 var win;
 
@@ -17,11 +17,7 @@ function createWindow() {
         }
     });
 
-    win.loadFile("index.html")
-    .onload = function() {
-        display = document.querySelector('#time');
-        wordlist.startTimer(120, display);
-    }
+    win.loadFile("index.html");
     win.on("closed", () => {
         win = null;
     });
@@ -29,6 +25,6 @@ function createWindow() {
 
 electron.app.on("ready", createWindow);
 electron.app.on("activate", createWindow);
-wordlist.init();
 
+game.init();
 
