@@ -17,7 +17,11 @@ function createWindow() {
         }
     });
 
-    win.loadFile("index.html");
+    win.loadFile("index.html")
+    .onload = function() {
+        display = document.querySelector('#time');
+        wordlist.startTimer(120, display);
+    }
     win.on("closed", () => {
         win = null;
     });
@@ -25,7 +29,6 @@ function createWindow() {
 
 electron.app.on("ready", createWindow);
 electron.app.on("activate", createWindow);
-
-game.init();
+wordlist.init();
 
 

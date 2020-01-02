@@ -23,3 +23,4 @@ test("Second word is access", () => {
     game.setBaseword(1);
     expect(game.getBaseword().word).toBe("access");
 });
+
