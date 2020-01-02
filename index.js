@@ -28,4 +28,3 @@ electron.app.on("activate", createWindow);
 
 game.init();
 
-
