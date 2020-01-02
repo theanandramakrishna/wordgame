@@ -23,3 +23,7 @@ test("Second word is access", () => {
     game.setBaseword(1);
     expect(game.getBaseword().word).toBe("access");
 });
+test("Last word is zounds", () => {
+    game.setBaseword(8100);
+    expect(game.getBaseword().word).toBe("zounds");
+});
