@@ -29,6 +29,3 @@ electron.app.on("activate", createWindow);
 game.init();
 
 global.gameObject = game;
-
-
-

@@ -99,3 +99,16 @@ function permuteWordRecurse(word, indexChoices, count, perms) {
         indexChoices.pop();
     }
 }
+exports.countdown = function(seconds) {
+    var seconds = seconds;
+    function tick() {
+      seconds = seconds - 1;
+      if (seconds > 0) { 
+        //keep running tick function every second until second reaches 0
+        setTimeout(tick, 1000);
+      } else {
+        exports.reset();
+      }
+    }
+    tick();
+}
