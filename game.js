@@ -16,24 +16,6 @@ exports.reset = function() {
     baseword = null;
 }
 
-function getRandomNum(max) {
-    return Math.floor(Math.random() * max);
-}
-
-function pickBaseword() {
-    var basewords = wordlist.getBasewords();
-
-    while (true) {
-        baseword = new Object();
-        baseword.word = basewords[getRandomNum(basewords.length)];
-        baseword.perms = permuteWord(basewords[i]);
-
-        if (perms.length >= MINPERMUTATIONS) {
-            break;
-        }
-    }
-}
-
 // Just a test mock
 exports.setBaseword = function(num) {
     baseword = new Object();
@@ -45,6 +27,24 @@ exports.setBaseword = function(num) {
 
 exports.getBaseword = function() {
     return baseword;
+}
+
+function getRandomNum(max) {
+    return Math.floor(Math.random() * max);
+}
+
+function pickBaseword() {
+    var basewords = wordlist.getBasewords();
+
+    while (true) {
+        baseword = new Object();
+        baseword.word = basewords[getRandomNum(basewords.length)];
+        baseword.perms = permuteWord(baseword.word);
+
+        if (baseword.perms.length >= MINPERMUTATIONS) {
+            break;
+        }
+    }
 }
 
 //
