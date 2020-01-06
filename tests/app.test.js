@@ -33,7 +33,7 @@ test("word is set to default value", async () => {
 test ("word is changed after clicking start", async () => {
     await app.client.click("#startbtn");
     var word = await app.client.getText("#word");
-    expect(word).toNotBe("word");
+    expect(word).not.toBe("word");
 });
 
 afterAll(() => {
