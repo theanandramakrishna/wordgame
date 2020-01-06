@@ -19,7 +19,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install, build, and test
       run: |
-        apt-get -y install xvfb firefox
+        sudo apt-get -y install xvfb firefox
         xvfb :1099 &
         export DISPLAY=:1099
         npm ci
