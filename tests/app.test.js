@@ -8,7 +8,8 @@ const app = new spectron.Application({
     args: [path.join(__dirname, "..")]   
 });
 
-jest.setTimeout(30000); // Set to 30s since starting up electron takes time, more than the default 5s.
+// Set to 30s since starting up electron takes time, more than the default 5s.
+jest.setTimeout(30000); 
 
 beforeAll(() => {
     return app.start();
@@ -17,6 +18,22 @@ beforeAll(() => {
 test("Title is word game!", async () => {
     var title = await app.client.waitUntilWindowLoaded().getTitle();
     expect(title).toBe("Word Game!");
+});
+
+test("Start button exists", async () => {
+    var buttonText = await app.client.getText("#startbtn");
+    expect(buttonText).toBe("Start");
+});
+
+test("word is set to default value", async () => {
+    var word = await app.client.getText("#word");
+    expect(word).toBe("word");
+});
+
+test ("word is changed after clicking start", async () => {
+    await app.client.click("#startbtn");
+    var word = await app.client.getText("#word");
+    expect(word).toNotBe("word");
 });
 
 afterAll(() => {
