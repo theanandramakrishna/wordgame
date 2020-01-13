@@ -30,11 +30,11 @@ var start = new Vue({
     methods: {
         startGame: function() {
             game.start();
-            var baseword = game.getBaseword();
-            word.message = baseword.word;
+            var gamestate = game.getGameState();
+            word.message = gamestate.baseword.word;
             wordperms.perms = new Array();
-            for (var i = 0; i < baseword.perms.length; i++) {
-                wordperms.perms.push({ text: baseword.perms[i]});
+            for (var i = 0; i < gamestate.baseword.perms.length; i++) {
+                wordperms.perms.push({ text: gamestate.baseword.perms[i]});
             }
         }
     }
