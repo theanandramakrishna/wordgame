@@ -28,7 +28,7 @@ exports.setBaseword = function(num) {
     gamestate.baseword.word = wordlist.getBasewords()[num];
     gamestate.baseword.perms = permuteWord(wordlist.getBasewords()[num]);
 
-    return baseword;
+    return gamestate.baseword;
 }
 
 exports.getGameState = function() {
