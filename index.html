@@ -67,7 +67,8 @@
     <div class="wrapper">
       <div id="sidebar" class="sidenav">
         <a href="#">About</a>
-        <a href="#" id="startbtn" v-on:click="startGame">Start</a>
+        <a href="#" id="startbtn" v-on:click="startGame" v-if="isStopped">Start</a>
+        <a href="#" id="stopbtn" v-on:click="stopGame" v-if="isRunning">Stop</a>
         <a href="#" id="timeremaining">{{ timeremaining }}</a>
       </div>
       <div id="content" class="content">
