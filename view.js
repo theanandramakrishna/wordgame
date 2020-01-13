@@ -30,15 +30,31 @@ var start = new Vue({
     methods: {
         startGame: function() {
             game.start();
-            var gamestate = game.getGameState();
-            word.message = gamestate.baseword.word;
-            wordperms.perms = new Array();
-            for (var i = 0; i < gamestate.baseword.perms.length; i++) {
-                wordperms.perms.push({ text: gamestate.baseword.perms[i]});
-            }
+            updateState();
         }
     }
 });
+
+function updateState() {
+    var gamestate = game.getGameState();
+
+    if (timeremaining.timeremaining != gamestate.timeremaining) {
+        timeremaining.timeremaining = gamestate.timeremaining;
+    }
+    
+    if (!gamestate.baseword) {
+        word.message = "";
+        wordperms.perms = [ { text: "empty" } ];
+    }
+    else if (word.message != gamestate.baseword.word) {
+        word.message = gamestate.baseword.word;
+        wordperms.perms = new Array();
+        for (var i = 0; i < gamestate.baseword.perms.length; i++) {
+            wordperms.perms.push({ text: gamestate.baseword.perms[i]});
+        }
+    }
+}
+setInterval(updateState, 500);
 
 
 

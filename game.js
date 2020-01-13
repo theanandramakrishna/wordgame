@@ -13,14 +13,17 @@ exports.init = function() {
 }
 
 exports.start = function() {
+    gamestate.state = "running";
     pickBaseword();
+    countdown(2 * 60);    // Countdown for 2 minutes
 }
 
-exports.reset = function() {
+function reset() {
     gamestate.state = "stopped";
     gamestate.baseword = null;
     gamestate.timeremaining = 0;
 }
+exports.reset = reset;
 
 // Just a test mock
 exports.setBaseword = function(num) {
@@ -105,16 +108,18 @@ function permuteWordRecurse(word, indexChoices, count, perms) {
         indexChoices.pop();
     }
 }
-exports.countdown = function(seconds) {
-    var seconds = seconds;
+
+function countdown(seconds) {
+    gamestate.timeremaining = seconds;
     function tick() {
-      seconds = seconds - 1;
-      if (seconds > 0) { 
-        //keep running tick function every second until second reaches 0
-        setTimeout(tick, 1000);
-      } else {
-        exports.reset();
+        gamestate.timeremaining = gamestate.timeremaining - 1;
+        if (gamestate.timeremaining > 0) { 
+            //keep running tick function every second until second reaches 0
+            setTimeout(tick, 1000);
+        } else {
+            reset();
       }
     }
     tick();
 }
+exports.countdown = countdown;
