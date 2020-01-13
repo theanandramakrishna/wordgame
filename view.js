@@ -1,20 +1,23 @@
 const electron = require("electron");
 const game = electron.remote.require("./game");
 
+const DEFAULT_WORD = "empty";
+const DEFAULT_PERMS = [ 
+  { text: 'perm1' },
+  { text: 'perm2' }
+];
+
 var word = new Vue({
     el: '#word',
     data: {
-      message: 'word'
+      message: DEFAULT_WORD
     }
 });
 
 var wordperms = new Vue({
     el: '#wordperms',
     data: {
-      perms: [
-          { text: 'perm1' },
-          { text: 'perm2' }
-      ]
+      perms: DEFAULT_PERMS
     }
 });
 
@@ -70,8 +73,8 @@ function updateState() {
     }
     
     if (!gamestate.baseword) {
-        word.message = "empty";
-        wordperms.perms = [ { text: "empty" } ];
+        word.message = DEFAULT_WORD;
+        wordperms.perms = DEFAULT_PERMS;
     }
     else if (word.message != gamestate.baseword.word) {
         word.message = gamestate.baseword.word;
