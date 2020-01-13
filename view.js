@@ -27,6 +27,9 @@ var timeremaining = new Vue({
 
 var start = new Vue({
     el: '#startbtn',
+    data: {
+        isStopped: !isGameRunning()
+    },
     methods: {
         startGame: function() {
             game.start();
@@ -35,15 +38,39 @@ var start = new Vue({
     }
 });
 
+var stop = new Vue({
+    el: '#stopbtn',
+    data: {
+        isRunning: isGameRunning()
+    },
+    methods: {
+        stopGame: function() {
+            game.reset();
+            updateState();
+        }
+    }
+});
+
+var gamestate;
+
+function isGameRunning() {
+    if (gamestate != null && gamestate.state == "running") {
+        return true;
+    }
+    return false;
+}
+
 function updateState() {
-    var gamestate = game.getGameState();
+    gamestate = game.getGameState();
+    start.isStopped = !isGameRunning();
+    stop.isRunning = isGameRunning();
 
     if (timeremaining.timeremaining != gamestate.timeremaining) {
         timeremaining.timeremaining = gamestate.timeremaining;
     }
     
     if (!gamestate.baseword) {
-        word.message = "";
+        word.message = "empty";
         wordperms.perms = [ { text: "empty" } ];
     }
     else if (word.message != gamestate.baseword.word) {
@@ -54,6 +81,7 @@ function updateState() {
         }
     }
 }
+updateState();
 setInterval(updateState, 500);
 
 
