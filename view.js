@@ -36,6 +36,15 @@ var start = new Vue({
             for (var i = 0; i < baseword.perms.length; i++) {
                 wordperms.perms.push({ text: baseword.perms[i]});
             }
+            game.countdown(120);
+            timeremaining.timeremaining = game.seconds;
+            var seconds = game.seconds;
+            while (seconds != 0) {
+                setTimeout(() => {
+                    seconds = game.seconds;
+                    timeremaining.timeremaining = seconds;
+                }, 1000);
+            }
         }
     }
 });

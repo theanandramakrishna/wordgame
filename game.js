@@ -108,7 +108,7 @@ exports.countdown = function(seconds) {
         setTimeout(tick, 1000);
       } else {
         exports.reset();
-      }
+      } 
     }
     tick();
 }

@@ -16,16 +16,11 @@ exports.init = function() {
 exports.getBasewords = function() {
     return basewords;
 }
-
 var lists;
-
 exports.isWord = function(word) {
-    var listLength = lists.length;
-    while (listLength != -1) {
-        if (lists[listLength-1].indexOf(word) != -1) {
+    for (var i = 0; i < lists.length; i++) {
+        if (lists[i].indexOf(word) != -1) {
             return true;
-        } else {
-            listLength = listLength - 1;
         }
     }
     return false;
@@ -41,6 +36,8 @@ exports.BASELENGTH = BASELENGTH;
 
 
 function buildBasewords() {
+    basewords = new Array();
+    
     lists = [
         wordlist_eng["english/10"],    // Common words
         wordlist_eng["english/20"],
@@ -48,10 +45,10 @@ function buildBasewords() {
         wordlist_eng["english/40"],
         wordlist_eng["english/50"],
         wordlist_eng["english/55"],
-        wordlist_eng["english/60"]
+        //wordlist_eng["english/60"]
         // wordlist_eng["english/70"]   // Exclude bizarre words
     ];
-    basewords = new Array();
+
     for (var i = 0; i < lists.length; i++) {
         for (var j = 0; j < lists[i].length; j++) {
             if (lists[i][j].length == BASELENGTH) {
