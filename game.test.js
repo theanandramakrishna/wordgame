@@ -9,9 +9,9 @@ test("First word is accept", () => {
     expect(game.getGameState().baseword.word).toBe("accept");
 });
 
-test("accept has 26 perms", () => {
+test("accept has 14 perms", () => {
     game.setBaseword(0);
-    expect(game.getGameState().baseword.perms.length).toBe(26);
+    expect(game.getGameState().baseword.perms.length).toBe(14);
 });
 
 test("First perm of accept is ace", () => {
@@ -24,9 +24,9 @@ test("Second word is access", () => {
     expect(game.getGameState().baseword.word).toBe("access");
 });
 
-test("Last word is zounds", () => {
-    game.setBaseword(8100);
-    expect(game.getGameState().baseword.word).toBe("zounds");
+test("Last word is yields", () => {
+    game.setBaseword(1640);
+    expect(game.getGameState().baseword.word).toBe("yields");
  });
 
 test("After 5 seconds, baseword is null", () => {
