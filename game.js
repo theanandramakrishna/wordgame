@@ -2,31 +2,40 @@ const wordlist = require("./wordlist");
 const MINWORDLENGTH = 3;
 const MINPERMUTATIONS = 10;
 
-var baseword = null;
+var gamestate = {
+    state:  "stopped",  // Can be either stopped or running
+    baseword: null,
+    timeremaining: null
+};
 
 exports.init = function() {
     wordlist.init();
 }
 
 exports.start = function() {
+    gamestate.state = "running";
     pickBaseword();
+    countdown(2 * 60);    // Countdown for 2 minutes
 }
 
-exports.reset = function() {
-    baseword = null;
+function reset() {
+    gamestate.state = "stopped";
+    gamestate.baseword = null;
+    gamestate.timeremaining = 0;
 }
+exports.reset = reset;
 
 // Just a test mock
 exports.setBaseword = function(num) {
-    baseword = new Object();
-    baseword.word = wordlist.getBasewords()[num];
-    baseword.perms = permuteWord(wordlist.getBasewords()[num]);
+    gamestate.baseword = new Object();
+    gamestate.baseword.word = wordlist.getBasewords()[num];
+    gamestate.baseword.perms = permuteWord(wordlist.getBasewords()[num]);
 
-    return baseword;
+    return gamestate.baseword;
 }
 
-exports.getBaseword = function() {
-    return baseword;
+exports.getGameState = function() {
+    return gamestate;
 }
 
 function getRandomNum(max) {
@@ -37,11 +46,11 @@ function pickBaseword() {
     var basewords = wordlist.getBasewords();
 
     while (true) {
-        baseword = new Object();
-        baseword.word = basewords[getRandomNum(basewords.length)];
-        baseword.perms = permuteWord(baseword.word);
+        gamestate.baseword = new Object();
+        gamestate.baseword.word = basewords[getRandomNum(basewords.length)];
+        gamestate.baseword.perms = permuteWord(gamestate.baseword.word);
 
-        if (baseword.perms.length >= MINPERMUTATIONS) {
+        if (gamestate.baseword.perms.length >= MINPERMUTATIONS) {
             break;
         }
     }
@@ -99,16 +108,18 @@ function permuteWordRecurse(word, indexChoices, count, perms) {
         indexChoices.pop();
     }
 }
-exports.countdown = function(seconds) {
-    var seconds = seconds;
+
+function countdown(seconds) {
+    gamestate.timeremaining = seconds;
     function tick() {
-      seconds = seconds - 1;
-      if (seconds > 0) { 
-        //keep running tick function every second until second reaches 0
-        setTimeout(tick, 1000);
-      } else {
-        exports.reset();
-      } 
+        gamestate.timeremaining = gamestate.timeremaining - 1;
+        if (gamestate.timeremaining > 0) { 
+            //keep running tick function every second until second reaches 0
+            setTimeout(tick, 1000);
+        } else {
+            reset();
+      }
     }
     tick();
 }
+exports.countdown = countdown;
