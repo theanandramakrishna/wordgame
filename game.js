@@ -12,9 +12,12 @@ exports.init = function() {
     wordlist.init();
 }
 
-exports.start = function() {
+exports.start = function(dontpickword) {
     gamestate.state = "running";
-    pickBaseword();
+    if (dontpickword == true) { }
+    else {
+        pickBaseword();
+    }
     countdown(2 * 60);    // Countdown for 2 minutes
 }
 
@@ -26,10 +29,18 @@ function reset() {
 exports.reset = reset;
 
 // Just a test mock
-exports.setBaseword = function(num) {
+exports.setBaseword = setBaseword; 
+function setBaseword(num) {
     gamestate.baseword = new Object();
     gamestate.baseword.word = wordlist.getBasewords()[num];
-    gamestate.baseword.perms = permuteWord(wordlist.getBasewords()[num]);
+    var perms = permuteWord(wordlist.getBasewords()[num]);
+    gamestate.baseword.perms = new Array();
+    for (var i = 0; i < perms.length; i++) {
+        gamestate.baseword.perms.push({
+            perm: perms[i],
+            guessed: false
+        });
+    }
 
     return gamestate.baseword;
 }
@@ -46,9 +57,7 @@ function pickBaseword() {
     var basewords = wordlist.getBasewords();
 
     while (true) {
-        gamestate.baseword = new Object();
-        gamestate.baseword.word = basewords[getRandomNum(basewords.length)];
-        gamestate.baseword.perms = permuteWord(gamestate.baseword.word);
+        setBaseword(getRandomNum(basewords.length));
 
         if (gamestate.baseword.perms.length >= MINPERMUTATIONS) {
             break;

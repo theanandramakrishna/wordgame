@@ -38,12 +38,39 @@ test("perms are default values", async () => {
     expect(perms).toBe(PERMS_DEFAULT_VAL);
 });
 
-test ("word and perms changed after clicking start", async () => {
+test("stop button should not exist when game is stopped", async () => {
+    var stop = await app.client.$("#stopbtn"); 
+    expect(stop.type).toBe("NoSuchElement");
+});
+
+test("word and perms changed after clicking start", async () => {
     await app.client.click("#startbtn");
     var word = await app.client.getText("#word");
     expect(word).not.toBe(WORD_DEFAULT_VAL);
     var perms = await app.client.getText("#wordperms");
     expect(perms).not.toBe(PERMS_DEFAULT_VAL);
+    var start = await app.client.$("#startBtn"); 
+    expect(start.type).toBe("NoSuchElement"); // Start should not exist while game running
+});
+
+test("stop should exist while game running", async () => {
+    var stop = await app.client.getText("#stopbtn");
+    expect(stop).toBe("Stop");
+});
+
+test("Stop should stop game and enable start", async () => {
+    await app.client.click("#stopbtn");
+    var start = await app.client.getText("#startbtn");
+    expect(start).toBe("Start");
+});
+
+test("Start game with baseword=access", async () => {
+    await app.client.execute(function(elem) {
+        window.test_basewordnum = "1";
+    });
+    await app.client.click("#startbtn");
+    var word = await app.client.getText("#word");
+    expect(word).toBe("access");
 });
 
 afterAll(() => {

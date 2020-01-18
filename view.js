@@ -35,7 +35,12 @@ var start = new Vue({
     },
     methods: {
         startGame: function() {
-            game.start();
+            var dontpickword = false;
+            if (window.test_basewordnum != null && window.test_basewordnum != "") {
+                game.setBaseword(window.test_basewordnum);
+                dontpickword = true;
+            }
+            game.start(dontpickword);
             updateState();
         }
     }
@@ -80,7 +85,16 @@ function updateState() {
         word.message = gamestate.baseword.word;
         wordperms.perms = new Array();
         for (var i = 0; i < gamestate.baseword.perms.length; i++) {
-            wordperms.perms.push({ text: gamestate.baseword.perms[i]});
+            if (gamestate.baseword.perms[i].guessed == true) {
+                wordperms.perms.push({ text: gamestate.baseword.perms[i].perm});
+            }
+            else {
+                var emptyword = "";
+                for (var x = 0; x < gamestate.baseword.perms[i].perm.length; x++) {
+                    emptyword = emptyword + "_ ";
+                }
+                wordperms.perms.push({ text: emptyword });
+            }
         }
     }
 }
