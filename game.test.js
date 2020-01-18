@@ -16,7 +16,7 @@ test("accept has 14 perms", () => {
 
 test("First perm of accept is ace", () => {
     game.setBaseword(0);
-    expect(game.getGameState().baseword.perms[0]).toBe("ace");
+    expect(game.getGameState().baseword.perms[0].perm).toBe("ace");
 });
 
 test("Second word is access", () => {
