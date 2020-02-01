@@ -1,3 +1,7 @@
+"use strict";
+
+/* eslint-env jest */
+
 const game = require("./game");
 
 beforeAll(() => {

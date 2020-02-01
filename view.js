@@ -1,3 +1,7 @@
+"use strict";
+
+/* eslint-env browser */
+
 const electron = require("electron");
 const game = electron.remote.require("./game");
 

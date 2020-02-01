@@ -1,3 +1,5 @@
+"use strict";
+
 const wordlist_eng = require("wordlist-english");
 
 const BASELENGTH = 6;
