@@ -1,3 +1,5 @@
+"use strict";
+
 const wordlist = require("./wordlist");
 const MINWORDLENGTH = 3;
 const MINPERMUTATIONS = 10;
@@ -14,8 +16,8 @@ exports.init = function() {
 
 exports.start = function(dontpickword) {
     gamestate.state = "running";
-    if (dontpickword == true) { }
-    else {
+    if (!dontpickword)
+    {
         pickBaseword();
     }
     countdown(2 * 60);    // Countdown for 2 minutes
@@ -100,7 +102,7 @@ function permuteWordRecurse(word, indexChoices, count, perms) {
         }
         else {
             var permWord = "";
-            for (j = 0; j < indexChoices.length; j++) {
+            for (var j = 0; j < indexChoices.length; j++) {
                 permWord = permWord.concat(word[indexChoices[j]]);
             }
 
