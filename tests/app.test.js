@@ -97,7 +97,12 @@ test("Add word 'case' with baseword=access", async () => {
 
     var hiddenperm = await app.client.getText("#hiddenperm");
     expect(hiddenperm).toEqual([
-        "_ _ _", "_ _ _", "_ _ _", "_ _ _ _", "_ _ _ _ _", "_ _ _ _ _ _"
+        "_ _ _", 
+        "_ _ _", 
+        "_ _ _", 
+        "_ _ _ _", 
+        "_ _ _ _ _", 
+        "_ _ _ _ _ _"
     ]);
 
     await app.client.setValue("#entrytext", "case");
