@@ -5,9 +5,14 @@
 3. Install the neccessary dependencies by running npm install in the repository directory.
 4. To start the program, run the command npm start.
 ```filler
-C:\Users\daniel\wordgame>npm start
+$ npm start
 ```
 5. To do tests, run the command npm test.
 ```filler
-C:\Users\daniel\wordgame>npm test
+$ npm test
 ```
+6. To run the linter before submitting a PR, do:
+```filler
+$ npm run lint
+```
+

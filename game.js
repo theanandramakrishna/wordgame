@@ -1,3 +1,5 @@
+"use strict";
+
 const wordlist = require("./wordlist");
 const MINWORDLENGTH = 3;
 const MINPERMUTATIONS = 10;
@@ -14,8 +16,8 @@ exports.init = function() {
 
 exports.start = function(dontpickword) {
     gamestate.state = "running";
-    if (dontpickword == true) { }
-    else {
+    if (!dontpickword)
+    {
         pickBaseword();
     }
     countdown(2 * 60);    // Countdown for 2 minutes
@@ -47,6 +49,17 @@ function setBaseword(num) {
 
 exports.getGameState = function() {
     return gamestate;
+}
+
+exports.addWord = function(word) {
+    for (var i = 0; i < gamestate.baseword.perms.length; i++) {
+        if (gamestate.baseword.perms[i].perm === word) {
+            gamestate.baseword.perms[i].guessed = true;
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function getRandomNum(max) {
