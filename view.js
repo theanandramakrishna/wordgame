@@ -82,7 +82,7 @@ function updateState() {
         wordperms.perms = DEFAULT_PERMS;
     }
     else if (word.message != gamestate.baseword.word) {
-        word.message = gamestate.baseword.word;
+        //word.message = gamestate.baseword.scramble;
         wordperms.perms = new Array();
         for (var i = 0; i < gamestate.baseword.perms.length; i++) {
             if (gamestate.baseword.perms[i].guessed == true) {

@@ -60,6 +60,7 @@ function pickBaseword() {
         setBaseword(getRandomNum(basewords.length));
 
         if (gamestate.baseword.perms.length >= MINPERMUTATIONS) {
+            //scrambleWord(gamestate.baseword.word);
             break;
         }
     }
@@ -100,7 +101,7 @@ function permuteWordRecurse(word, indexChoices, count, perms) {
         }
         else {
             var permWord = "";
-            for (j = 0; j < indexChoices.length; j++) {
+            for (var j = 0; j < indexChoices.length; j++) {
                 permWord = permWord.concat(word[indexChoices[j]]);
             }
 
@@ -130,5 +131,17 @@ function countdown(seconds) {
       }
     }
     tick();
+}
+function scrambleWord(word) {
+    var wordArray = word.split('');
+    var scrambledWord = '';
+    while (wordArray.length > 0) {
+        var i = wordArray.splice(wordArray.length * Math.random() >> 0, 1);
+        scrambledWord += i;
+    }
+    if (scrambledWord == word) {
+        scrambleWord(scrambledWord)
+    };
+    gamestate.baseword.scramble = scrambledWord;
 }
 exports.countdown = countdown;
