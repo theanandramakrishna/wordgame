@@ -82,7 +82,8 @@ test("Start game with baseword=access", async () => {
     await app.client.execute(() => {
         window.test_basewordnum = "1";
     });
-    await app.client.click("#startbtn");
+    sleep(100);
+    startGame();
     var word = await app.client.getText("#word");
     expect(word).toBe("access");
 });
@@ -91,7 +92,7 @@ test("Add word 'case' with baseword=access", async () => {
     await app.client.execute(() => {
         window.test_basewordnum = "1";
     });
-    await app.client.click("#startbtn");
+    await startGame();
     var word = await app.client.getText("#word");
     expect(word).toBe("access");
 
@@ -105,12 +106,31 @@ test("Add word 'case' with baseword=access", async () => {
         "_ _ _ _ _ _"
     ]);
 
-    await app.client.setValue("#entrytext", "case");
-    await app.client.click("#addwordbtn");
+    await addWord("case");
 
     var guessedperm = await app.client.getText("#guessedperm");
     expect(guessedperm).toBe("case");
 });
+
+async function startGame() {
+    await app.client.click("#startbtn");
+    await sleep(1000);
+}
+
+async function stopGame() {
+    await app.client.click("#stopbtn");
+    await sleep(1000);
+}
+
+async function addWord(word) {
+    await app.client.setValue("#entrytext", word);
+    await app.client.click("#addwordbtn");
+    await sleep(1000);
+}
+
+async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 afterAll(() => {
     if (app != null && app.isRunning()) {
