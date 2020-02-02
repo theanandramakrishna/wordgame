@@ -51,6 +51,17 @@ exports.getGameState = function() {
     return gamestate;
 }
 
+exports.addWord = function(word) {
+    for (var i = 0; i < gamestate.baseword.perms.length; i++) {
+        if (gamestate.baseword.perms[i].perm === word) {
+            gamestate.baseword.perms[i].guessed = true;
+            return true;
+        }
+    }
+
+    return false;
+}
+
 function getRandomNum(max) {
     return Math.floor(Math.random() * max);
 }
