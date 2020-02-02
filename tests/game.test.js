@@ -2,7 +2,7 @@
 
 /* eslint-env jest */
 
-const game = require("./game");
+const game = require("../game");
 
 beforeAll(() => {
     game.init();
