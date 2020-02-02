@@ -73,7 +73,7 @@ function pickBaseword() {
         setBaseword(getRandomNum(basewords.length));
 
         if (gamestate.baseword.perms.length >= MINPERMUTATIONS) {
-            //scrambleWord(gamestate.baseword.word);
+            gamestate.baseword.scrambled = scrambleWord(gamestate.baseword.word);
             break;
         }
     }
@@ -155,6 +155,6 @@ function scrambleWord(word) {
     if (scrambledWord == word) {
         scrambleWord(scrambledWord)
     };
-    gamestate.baseword.scramble = scrambledWord;
+    return scrambledWord;
 }
 exports.countdown = countdown;

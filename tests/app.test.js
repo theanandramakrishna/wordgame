@@ -72,6 +72,7 @@ test("Start game with baseword=access", async () => {
         window.test_basewordnum = "1";
     });
     await app.client.click("#startbtn");
+    await app.client.debug();
     var word = await app.client.getText("#word");
     expect(word).toBe("access");
 });
