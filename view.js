@@ -19,28 +19,28 @@ const DEFAULT_PERMS = [
   }
 ];
 
-var word = new Vue({
+var wordVue = new Vue({
     el: '#word',
     data: {
       message: DEFAULT_WORD
     }
 });
 
-var wordperms = new Vue({
+var wordpermsVue = new Vue({
     el: '#wordperms',
     data: {
       perms: DEFAULT_PERMS
     }
 });
 
-var timeremaining = new Vue({
+var timeremainingVue = new Vue({
     el: '#timeremaining',
     data: {
         timeremaining: 'Timer Value'
     }
 });
 
-var start = new Vue({
+var startVue = new Vue({
     el: '#startbtn',
     data: {
         isStopped: !isGameRunning()
@@ -58,7 +58,7 @@ var start = new Vue({
     }
 });
 
-var stop = new Vue({
+var stopVue = new Vue({
     el: '#stopbtn',
     data: {
         isRunning: isGameRunning()
@@ -71,19 +71,19 @@ var stop = new Vue({
     }
 });
 
-var wordEntry = new Vue({
+var wordEntryVue = new Vue({
     el: '#entrytext',
     data: {
         entryText: ""
     }
 });
 
-var addword = new Vue({ // eslint-disable-line no-unused-vars
+var addwordVue = new Vue({ // eslint-disable-line no-unused-vars
     el: '#addwordbtn',
     methods: {
         addWord: function() {
-            game.addWord(wordEntry.entryText);
-            wordEntry.entryText = "";
+            game.addWord(wordEntryVue.entryText);
+            wordEntryVue.entryText = "";
             updateState();
         }
     }
@@ -100,28 +100,28 @@ function isGameRunning() {
 
 function updateState() {
     gamestate = game.getGameState();
-    start.isStopped = !isGameRunning();
-    stop.isRunning = isGameRunning();
+    startVue.isStopped = !isGameRunning();
+    stopVue.isRunning = isGameRunning();
 
-    if (timeremaining.timeremaining != gamestate.timeremaining) {
-        timeremaining.timeremaining = gamestate.timeremaining;
+    if (timeremainingVue.timeremaining != gamestate.timeremaining) {
+        timeremainingVue.timeremaining = gamestate.timeremaining;
     }
     
     if (!gamestate.baseword) {
-        for (var j = 0; j < wordperms.perms.length; j++) {
-            wordperms.perms[j].guessed = true;
+        for (var j = 0; j < wordpermsVue.perms.length; j++) {
+            wordpermsVue.perms[j].guessed = true;
         }
     }
-    else if (word.message != gamestate.baseword.word) {
-        word.message = gamestate.baseword.word;
-        wordperms.perms = new Array();
+    else if (wordVue.message != gamestate.baseword.word) {
+        wordVue.message = gamestate.baseword.word;
+        wordpermsVue.perms = new Array();
         for (var i = 0; i < gamestate.baseword.perms.length; i++) {
             var emptyword = "";
             for (var x = 0; x < gamestate.baseword.perms[i].perm.length; x++) {
                 emptyword = emptyword + "_ ";
             }
 
-            wordperms.perms.push({ 
+            wordpermsVue.perms.push({ 
                 text: gamestate.baseword.perms[i].perm,
                 hiddentext: emptyword,
                 guessed: gamestate.baseword.perms[i].guessed
@@ -130,7 +130,7 @@ function updateState() {
     }
     else {
         for (var k = 0; k < gamestate.baseword.perms.length; k++) {
-            wordperms.perms[k].guessed = gamestate.baseword.perms[k].guessed;
+            wordpermsVue.perms[k].guessed = gamestate.baseword.perms[k].guessed;
         }
     }
 }
