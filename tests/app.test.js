@@ -72,8 +72,8 @@ test("stop should exist while game running", async () => {
 });
 
 test("Stop should stop game and enable start", async () => {
-    await app.client.click("#startbtn");
-    await app.client.click("#stopbtn");
+    startGame();
+    stopGame();
     var start = await app.client.getText("#startbtn");
     expect(start).toBe("Start");
 });
@@ -128,8 +128,8 @@ async function addWord(word) {
     await sleep(1000);
 }
 
-async function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 afterAll(() => {
