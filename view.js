@@ -78,7 +78,7 @@ var wordEntry = new Vue({
     }
 });
 
-var addword = new Vue({
+var addword = new Vue({ // eslint-disable-line no-unused-vars
     el: '#addwordbtn',
     methods: {
         addWord: function() {
@@ -108,8 +108,8 @@ function updateState() {
     }
     
     if (!gamestate.baseword) {
-        for (var i = 0; i < wordperms.perms.length; i++) {
-            wordperms.perms[i].guessed = true;
+        for (var j = 0; j < wordperms.perms.length; j++) {
+            wordperms.perms[j].guessed = true;
         }
     }
     else if (word.message != gamestate.baseword.word) {
@@ -129,8 +129,8 @@ function updateState() {
         }
     }
     else {
-        for (var i = 0; i < gamestate.baseword.perms.length; i++) {
-            wordperms.perms[i].guessed = gamestate.baseword.perms[i].guessed;
+        for (var k = 0; k < gamestate.baseword.perms.length; k++) {
+            wordperms.perms[k].guessed = gamestate.baseword.perms[k].guessed;
         }
     }
 }
