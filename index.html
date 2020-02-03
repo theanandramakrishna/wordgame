@@ -76,8 +76,8 @@
           <div id="word"><h3>{{ message }}</h3></div>
           <div id="wordperms" class="multicol">
             <div v-for="perm in perms">
-              <span v-if="perm.guessed">{{ perm.text }}</span>
-              <span v-else>{{ perm.hiddentext }}</span>              
+              <span id="guessedperm" v-if="perm.guessed">{{ perm.text }}</span>
+              <span id="hiddenperm" v-else>{{ perm.hiddentext }}</span>              
             </div>
           </div>
           <br/>
