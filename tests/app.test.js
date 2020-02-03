@@ -72,8 +72,8 @@ test("stop should exist while game running", async () => {
 });
 
 test("Stop should stop game and enable start", async () => {
-    startGame();
-    stopGame();
+    await startGame();
+    await stopGame();
     var start = await app.client.getText("#startbtn");
     expect(start).toBe("Start");
 });
@@ -82,8 +82,8 @@ test("Start game with baseword=access", async () => {
     await app.client.execute(() => {
         window.test_basewordnum = "1";
     });
-    sleep(100);
-    startGame();
+    //await sleep(100);
+    await startGame();
     var word = await app.client.getText("#word");
     expect(word).toBe("access");
 });
@@ -92,6 +92,7 @@ test("Add word 'case' with baseword=access", async () => {
     await app.client.execute(() => {
         window.test_basewordnum = "1";
     });
+    await sleep(100);
     await startGame();
     var word = await app.client.getText("#word");
     expect(word).toBe("access");
