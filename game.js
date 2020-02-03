@@ -43,7 +43,7 @@ function setBaseword(num) {
             guessed: false
         });
     }
-
+    gamestate.baseword.scrambled = scrambleWord(gamestate.baseword.word);
     return gamestate.baseword;
 }
 
@@ -73,7 +73,6 @@ function pickBaseword() {
         setBaseword(getRandomNum(basewords.length));
 
         if (gamestate.baseword.perms.length >= MINPERMUTATIONS) {
-            gamestate.baseword.scrambled = scrambleWord(gamestate.baseword.word);
             break;
         }
     }
