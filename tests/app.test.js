@@ -85,6 +85,8 @@ test("Start game with baseword=access", async () => {
     //await sleep(100);
     await startGame();
     var word = await app.client.getText("#word");
+    word = word.split('').sort().
+        join('');
     expect(word).toBe("access");
 });
 
@@ -95,13 +97,19 @@ test("Add word 'case' with baseword=access", async () => {
     await sleep(100);
     await startGame();
     var word = await app.client.getText("#word");
+    word = word.split('').sort().
+        join('');
     expect(word).toBe("access");
 
     var hiddenperm = await app.client.getText("#hiddenperm");
     expect(hiddenperm).toEqual([
         "_ _ _", 
         "_ _ _", 
-        "_ _ _", 
+        "_ _ _",
+        "_ _ _",
+        "_ _ _ _",
+        "_ _ _ _",
+        "_ _ _ _", 
         "_ _ _ _", 
         "_ _ _ _ _", 
         "_ _ _ _ _ _"

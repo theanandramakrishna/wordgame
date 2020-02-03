@@ -15,7 +15,7 @@ test("First word is accept", () => {
 
 test("accept has 14 perms", () => {
     game.setBaseword(0);
-    expect(game.getGameState().baseword.perms.length).toBe(14);
+    expect(game.getGameState().baseword.perms.length).toBe(20);
 });
 
 test("First perm of accept is ace", () => {

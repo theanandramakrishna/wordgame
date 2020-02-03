@@ -43,7 +43,7 @@ function setBaseword(num) {
             guessed: false
         });
     }
-
+    gamestate.baseword.scrambled = scrambleWord(gamestate.baseword.word);
     return gamestate.baseword;
 }
 
@@ -143,5 +143,17 @@ function countdown(seconds) {
       }
     }
     tick();
+}
+function scrambleWord(word) {
+    var wordArray = word.split('');
+    var scrambledWord = '';
+    while (wordArray.length > 0) {
+        var i = wordArray.splice(wordArray.length * Math.random(), 1);
+        scrambledWord = scrambledWord + i;
+    }
+    if (scrambledWord == word) {
+        scrambleWord(scrambledWord)
+    }
+    return scrambledWord;
 }
 exports.countdown = countdown;

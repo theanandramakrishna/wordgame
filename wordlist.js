@@ -36,8 +36,8 @@ function buildBasewords() {
     
     lists = [
         wordlist_eng["english/10"],    // Common words
-        wordlist_eng["english/20"]
-        //wordlist_eng["english/35"],
+        wordlist_eng["english/20"],
+        wordlist_eng["english/35"]
         //wordlist_eng["english/40"],
         //wordlist_eng["english/50"],
         //wordlist_eng["english/55"],

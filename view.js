@@ -112,8 +112,8 @@ function updateState() {
             wordpermsVue.perms[j].guessed = true;
         }
     }
-    else if (wordVue.message != gamestate.baseword.word) {
-        wordVue.message = gamestate.baseword.word;
+    else if (wordVue.message != gamestate.baseword.scrambled) {
+        wordVue.message = gamestate.baseword.scrambled;
         wordpermsVue.perms = new Array();
         for (var i = 0; i < gamestate.baseword.perms.length; i++) {
             var emptyword = "";
