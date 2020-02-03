@@ -21,6 +21,15 @@ jest.setTimeout(30000);
 
 beforeAll(() => app.start());
 
+beforeEach(async () => {
+    // Make sure that the game is not running before each test
+    var stop = await app.client.$("#stopbtn"); 
+    if (stop.type == "NoSuchElement") {
+        return;
+    }
+    await app.client.click("#stopbtn");
+});
+
 test("Title is word game!", async () => {
     var title = await app.client.waitUntilWindowLoaded().getTitle();
     expect(title).toBe("Word Game!");
@@ -57,12 +66,14 @@ test("word and perms changed after clicking start", async () => {
 });
 
 test("stop should exist while game running", async () => {
+    await app.client.click("#startbtn");
     var stop = await app.client.getText("#stopbtn");
     expect(stop).toBe("Stop");
 });
 
 test("Stop should stop game and enable start", async () => {
-    await app.client.click("#stopbtn");
+    await startGame();
+    await stopGame();
     var start = await app.client.getText("#startbtn");
     expect(start).toBe("Start");
 });
@@ -71,11 +82,56 @@ test("Start game with baseword=access", async () => {
     await app.client.execute(() => {
         window.test_basewordnum = "1";
     });
-    await app.client.click("#startbtn");
-    await app.client.debug();
+    //await sleep(100);
+    await startGame();
     var word = await app.client.getText("#word");
     expect(word).toBe("access");
 });
+
+test("Add word 'case' with baseword=access", async () => {
+    await app.client.execute(() => {
+        window.test_basewordnum = "1";
+    });
+    await sleep(100);
+    await startGame();
+    var word = await app.client.getText("#word");
+    expect(word).toBe("access");
+
+    var hiddenperm = await app.client.getText("#hiddenperm");
+    expect(hiddenperm).toEqual([
+        "_ _ _", 
+        "_ _ _", 
+        "_ _ _", 
+        "_ _ _ _", 
+        "_ _ _ _ _", 
+        "_ _ _ _ _ _"
+    ]);
+
+    await addWord("case");
+
+    var guessedperm = await app.client.getText("#guessedperm");
+    expect(guessedperm).toBe("case");
+});
+
+async function startGame() {
+    await app.client.click("#startbtn");
+    await sleep(1000);
+}
+
+async function stopGame() {
+    await app.client.click("#stopbtn");
+    await sleep(1000);
+}
+
+async function addWord(word) {
+    await app.client.setValue("#entrytext", word);
+    await app.client.click("#addwordbtn");
+    await sleep(1000);
+}
+
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 afterAll(() => {
     if (app != null && app.isRunning()) {
