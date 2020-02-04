@@ -83,7 +83,7 @@
           <br/>
           <div id="entry">
             <h3>
-              <input type="text" v-model="entryText" id="entrytext"/>
+              <input type="text" v-model="entryText" id="entrytext" @keyup.enter="onEnter"/>
               <button id="addwordbtn" v-on:click="addWord">Add Word</button>
             </h3>
           </div>
