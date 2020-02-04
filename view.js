@@ -53,6 +53,7 @@ var startVue = new Vue({
                 dontpickword = true;
             }
             game.start(dontpickword);
+            wordEntryVue.$el.focus();
             updateState();
         }
     }
@@ -75,10 +76,15 @@ var wordEntryVue = new Vue({
     el: '#entrytext',
     data: {
         entryText: ""
+    },
+    methods: {
+        onEnter: function() {
+            addwordVue.addWord();
+        }
     }
 });
 
-var addwordVue = new Vue({ // eslint-disable-line no-unused-vars
+var addwordVue = new Vue({ 
     el: '#addwordbtn',
     methods: {
         addWord: function() {
