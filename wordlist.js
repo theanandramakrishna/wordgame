@@ -21,12 +21,21 @@ exports.getBasewords = function() {
 var lists;
 var mainWordList;
 exports.isWord = function(word) {
-    for (var i = 0; i < lists.length; i++) {
-        if (lists[i].indexOf(word) != -1) {
-            return true;
+    if (word.length < 6) {
+        for (var i = 0; i < lists.length; i++) {
+            if (lists[i].indexOf(word) != -1) {
+                return true;
+            }
         }
+        return false;
+    } else if (word.length == 6) {
+        for (var j = 0; j < mainWordList.length; j++) {
+            if (mainWordList[j].indexOf(word) != -1) {
+                return true;
+            }
+        }
+        return false;
     }
-    return false;
 }
 
 exports.BASELENGTH = BASELENGTH;
