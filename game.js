@@ -56,7 +56,7 @@ exports.addWord = function(word) {
     for (var i = 0; i < gamestate.baseword.perms.length; i++) {
         if (gamestate.baseword.perms[i].perm === word) {
             gamestate.baseword.perms[i].guessed = true;
-            gamestate.points += gamestate.baseword.perms[i].perm.length - 2;
+            gamestate.points = gamestate.points + gamestate.baseword.perms[i].perm.length - 2;
             return true;
         }
     }
