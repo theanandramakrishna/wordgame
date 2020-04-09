@@ -7,7 +7,8 @@ const MINPERMUTATIONS = 10;
 var gamestate = {
     state:  "stopped",  // Can be either stopped or running
     baseword: null,
-    timeremaining: null
+    timeremaining: null,
+    points: 0
 };
 
 exports.init = function() {
@@ -55,6 +56,7 @@ exports.addWord = function(word) {
     for (var i = 0; i < gamestate.baseword.perms.length; i++) {
         if (gamestate.baseword.perms[i].perm === word) {
             gamestate.baseword.perms[i].guessed = true;
+            gamestate.points = gamestate.points + gamestate.baseword.perms[i].perm.length - 2;
             return true;
         }
     }

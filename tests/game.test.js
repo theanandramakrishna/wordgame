@@ -41,3 +41,17 @@ test("After 5 seconds, baseword is null", () => {
         expect(game.getGameState().baseword).toBe(null);
     }, 5000);
 });
+test("Points system works", () => {
+    game.setBaseword(0);
+    expect(game.getGameState().baseword.word).toBe("accept");
+    game.addWord("accept");
+    expect(game.getGameState().points).toBe(4);
+
+    game.addWord("pact");
+    expect(game.getGameState().points).toBe(6);
+
+    game.addWord("pet");
+    expect(game.getGameState().points).toBe(7);
+
+ });
+
