@@ -119,6 +119,8 @@ test("Add word 'case' with baseword=access", async () => {
 
     var guessedperm = await app.client.getText("#guessedperm");
     expect(guessedperm).toBe("case");
+    var points = await app.client.getText("#pointscount");
+    expect(points).toBe("2 points");
 });
 
 async function startGame() {
