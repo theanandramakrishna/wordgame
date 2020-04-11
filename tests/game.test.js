@@ -54,4 +54,28 @@ test("Points system works", () => {
     expect(game.getGameState().points).toBe(7);
 
  });
-
+test("Game ends when all words are entered", () => {
+    game.setBaseword(0);
+    expect(game.getGameState().baseword.word).toBe("accept");
+    game.addWord("ace");
+    game.addWord("act");
+    game.addWord("ape");
+    game.addWord("apt");
+    game.addWord("ate");
+    game.addWord("cap");
+    game.addWord("cat");
+    game.addWord("eat");
+    game.addWord("pat");
+    game.addWord("pea");
+    game.addWord("pet");
+    game.addWord("tap");
+    game.addWord("tea");
+    game.addWord("cape");
+    game.addWord("pace");
+    game.addWord("pact");
+    game.addWord("pate");
+    game.addWord("peat");
+    game.addWord("tape");
+    game.addWord("accept");
+    expect(game.getGameState().state).toBe("stopped");
+});
