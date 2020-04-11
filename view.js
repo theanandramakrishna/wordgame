@@ -95,6 +95,13 @@ var addwordVue = new Vue({
     }
 });
 
+var pointsVue = new Vue({
+    el: '#pointscount',
+    data: {
+        points: 0
+    }
+});
+
 var gamestate;
 
 function isGameRunning() {
@@ -111,6 +118,9 @@ function updateState() {
 
     if (timeremainingVue.timeremaining != gamestate.timeremaining) {
         timeremainingVue.timeremaining = gamestate.timeremaining;
+    }
+    if (pointsVue.points != gamestate.points) {
+        pointsVue.points = gamestate.points;
     }
     
     if (!gamestate.baseword) {
@@ -139,6 +149,7 @@ function updateState() {
             wordpermsVue.perms[k].guessed = gamestate.baseword.perms[k].guessed;
         }
     }
+    
 }
 updateState();
 setInterval(updateState, 500);
