@@ -60,9 +60,21 @@ exports.addWord = function(word) {
             return true;
         }
     }
-
+    if (areWordsGuessed() == true) {
+        reset();
+    }
     return false;
 }
+
+function areWordsGuessed() {
+    for (var i = 0; i < gamestate.baseword.perms.length; i++) {
+        if (gamestate.baseword.perms[i].guessed == false) {
+            return false;
+        }
+    }
+    return true;
+}
+
 
 function getRandomNum(max) {
     return Math.floor(Math.random() * max);
