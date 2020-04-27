@@ -8,12 +8,26 @@ var gamestate = {
     state:  "stopped",  // Can be either stopped or running
     baseword: null,
     timeremaining: null,
-    points: 0
+    points: 0,
+    stats: null
 };
 
 exports.init = function() {
     wordlist.init();
+    initStats();
 }
+
+function initStats() {
+    gamestate.stats = {
+        gamecount: 0,
+        threeltrcount: 0,
+        fourltrcount: 0,
+        fiveltrcount: 0,
+        sixltrcount: 0,
+        totalpoints: 0
+    }
+}
+exports.initStats = initStats;
 
 exports.start = function(dontpickword) {
     gamestate.state = "running";
@@ -26,10 +40,39 @@ exports.start = function(dontpickword) {
 
 function reset() {
     gamestate.state = "stopped";
+    gamestate.points = 0;
     gamestate.baseword = null;
     gamestate.timeremaining = 0;
 }
 exports.reset = reset;
+
+function normalreset() {
+    if (gamestate.baseword) {
+        gamestate.stats.gamecount = gamestate.stats.gamecount + 1;
+        gamestate.stats.totalpoints = gamestate.stats.totalpoints + gamestate.points;
+        for (var i = 0; i < gamestate.baseword.perms.length; i++) {
+            if (gamestate.baseword.perms[i].guessed) {
+                switch (gamestate.baseword.perms[i].perm.length) {
+                    case 3: 
+                        gamestate.stats.threeltrcount = gamestate.stats.threeltrcount + 1;
+                        break;
+                    case 4:
+                        gamestate.stats.fourltrcount = gamestate.stats.fourltrcount + 1;
+                        break;
+                    case 5: 
+                        gamestate.stats.fiveltrcount = gamestate.stats.fiveltrcount + 1;
+                        break;
+                    case 6:
+                        gamestate.stats.sixltrcount = gamestate.stats.sixltrcount + 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+    reset();
+}
 
 // Just a test mock
 exports.setBaseword = setBaseword; 
@@ -61,7 +104,7 @@ exports.addWord = function(word) {
         }
     }
     if (areWordsGuessed() == true) {
-        reset();
+        normalreset();
     }
     return false;
 }
@@ -153,7 +196,7 @@ function countdown(seconds) {
             //keep running tick function every second until second reaches 0
             setTimeout(tick, 1000);
         } else {
-            reset();
+            normalreset();
       }
     }
     tick();
