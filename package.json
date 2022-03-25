@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/theanandramakrishna/wordgame#readme",
   "devDependencies": {
-    "electron": "^7.1.7",
+    "electron": "^13.6.6",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.1.2",
     "jest": "^24.9.0",
